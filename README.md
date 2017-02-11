@@ -9,8 +9,9 @@ npm install --save redux-store-validator
 
 #### reducers/index.js
 
-```
+```js
 import { withValidation } from 'redux-store-validator';
+
 import aReducer, { validator as aValidator } from './a';
 import { bReducer } from './b';
 
@@ -32,7 +33,7 @@ const rootReducer = combineReducers(withValidation(reducers, validators));
 
 #### reducers/a.js
 
-```
+```js
 export function validator(state) {
   return state.word === 'asdf';
 }
