@@ -1,8 +1,8 @@
 {
-  "name": "redux-validator",
+  "name": "redux-store-validator",
   "version": "0.0.1",
   "description": "Validate stuff",
-  "main": "./lib/redux-validator.js",
+  "main": "./lib/redux-store-validator.js",
   "directories": {
     "test": "tests"
   },
@@ -13,11 +13,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "github.com/alixander/redux-validator.git"
+    "url": "github.com/alixander/redux-store-validator.git"
   },
   "author": "Blah",
   "license": "MIT",
-  "homepage": "https://github.com/alixander/redux-validator#readme",
+  "homepage": "https://github.com/alixander/redux-store-validator#readme",
   "babel": {
     "presets": [
       "es2015"

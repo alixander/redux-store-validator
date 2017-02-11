@@ -58,7 +58,7 @@ After you've wrapped your reducers and added validators, you can detect if the s
 
 `redux-store-validator` adds the following to your redux state:
 
-state.invalidStates: Array of keys which correspond to the substates that are invalid.
+`state[INVALID_KEYS]`: Array of keys which correspond to the substates that are invalid.
 
 You can act upon it however you like. Below are just a few examples
 
@@ -138,8 +138,10 @@ function replaceInvalid(combinedReducer) {
     for (const validatedSubstate of Object.keys(validators)) {
       if (newState[INVALID_KEYS].includes(validatedSubstate)) {
         newState[validatedSubstate] = defaultStates[validatedSubstate]
+        // If the default state is valid, the INVALID_KEYS will remove the state key in the next reduction step
       }
     }
+    return newState;
   }
 }
 export default replaceInvalid(rootReducer);
