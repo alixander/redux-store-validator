@@ -62,9 +62,11 @@ state.invalidStates: Array of keys which correspond to the substates that are in
 
 You can act upon it however you like. Below are just a few examples
 
---------------------------------------
+## Examples of acting upon invalid store
 
 In your component you can choose not to render with the new data if it's invalid.
+
+### components/myComponent.jsx
 
 ```js
 import { INVALID_KEYS } from 'redux-store-validator';
@@ -96,8 +98,9 @@ function mapStateToProps(state) {
 ...
 ```
 
-You can replace the state with a default valid one as soon as an action caused it to become invalid.
+---------------------------
 
+You can replace the state with a default valid one as soon as an action caused it to become invalid.
 
 #### Back in reducers/index.js
 
@@ -141,6 +144,8 @@ function replaceInvalid(combinedReducer) {
 }
 export default replaceInvalid(rootReducer);
 ```
+
+---------------------------
 
 You can log in a logger middleware
 
