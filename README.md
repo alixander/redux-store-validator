@@ -1,0 +1,4 @@
+Redux Store Validator
+=========
+
+- README
