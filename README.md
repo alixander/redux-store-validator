@@ -54,12 +54,20 @@ export default function(state, action) {
 }
 ```
 
-The substate will have an additional flag indicating whether or not validation succeeded.
+After you've wrapped your reducers and added validators, you can detect if the store has become invalid by querying the state.
 
-For example, in your component you can choose not to render with the new data if it's invalid.
+`redux-store-validator` adds the following to your redux state:
+
+state.invalidStates: Array of keys which correspond to the substates that are invalid.
+
+You can act upon it however you like. Below are just a few examples
+
+--------------------------------------
+
+In your component you can choose not to render with the new data if it's invalid.
 
 ```js
-import { IS_INVALID_FLAG } from 'redux-store-validator';
+import { INVALID_KEYS } from 'redux-store-validator';
 ...
 
 const myComponent = React.createClass({
@@ -82,14 +90,76 @@ const myComponent = React.createClass({
 function mapStateToProps(state) {
   return {
     text: state.a.word,
-    isValid: state.a.IS_INVALID_FLAG
+    isValid: state[INVALID_KEYS].includes('a')
   }
 }
 ...
 ```
 
-Or you can replace the state with a default valid one as soon as an action caused it to become invalid.
+You can replace the state with a default valid one as soon as an action caused it to become invalid.
+
+
+#### Back in reducers/index.js
 
 ```js
+import aReducer, {
+  validator as aValidator,
+  defaultState as aDefaultState
+} from './a';
+import { bReducer } from './b';
+
+import { INVALID_KEYS } from 'redux-store-validator';
+
+const reducers = {
+  a: aReducer,
+  b: bReducer
+}
+
+const validators = {
+  // Only add validators for substates you want validation on
+  a: aValidator
+}
+
+const defaultStates = {
+  a: aDefaultState
+}
+
 const rootReducer = combineReducers(withValidation(reducers, validators));
+
+function replaceInvalid(combinedReducer) {
+  return (state, action) => {
+    const newState = combinedReducer(state, action);
+    if (newState.INVALID_KEYS.length === 0) {
+      return newState;
+    }
+    for (const validatedSubstate of Object.keys(validators)) {
+      if (newState[INVALID_KEYS].includes(validatedSubstate)) {
+        newState[validatedSubstate] = defaultStates[validatedSubstate]
+      }
+    }
+  }
+}
+export default replaceInvalid(rootReducer);
+```
+
+You can log in a logger middleware
+
+#### middlewares/Logger.js
+
+```js
+import { INVALID_KEYS } from 'redux-store-validator';
+
+export default ({getState}) => (next) => (action) => {
+  const state = getState(); 
+  if (state[INVALID_KEYS].length !== 0) {
+    // Log the invalid states
+    for (const key of state[INVALID_KEYS]) {
+      const substate = state[key];
+      ...
+    }
+    ...
+  }
+  ...
+  return next(action);
+}
 ```

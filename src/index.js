@@ -4,6 +4,8 @@
 
 const noop = () => {return true};
 
+const IS_INVALID_FLAG = '@@redux-store-validator@@IS_INVALID_FLAG';
+
 export const withValidation = (reducers, validators) => {
   const validatedReducers = {};
   Object.entries(reducers).map(([reducerSubstate, reducer]) => {
@@ -11,7 +13,7 @@ export const withValidation = (reducers, validators) => {
     validatedReducers[reducerSubstate] = (state, action) => {
       const newState = reducer(state, action);
       if (!validators[reducerSubstate](newState)) {
-        // TODO
+        newState.IS_INVALID_FLAG = true;
       }
       return newState;
     }
