@@ -9,7 +9,7 @@ npm install --save redux-store-validator
 
 ### Purpose
 
-In a large React/Redux app, the store can become intractable. A common cause of bugs is when the data in the store has changed in a way that the developer didn't expect. `redux-store-validator` is intended to facilitate adding detection of when such a scenario occurs. You can add as many or as little validators to specific parts of your store, and act on it accordingly. For example, you can add a validator check that a value which you expected to be always positive ever becomes negative. If so, you can log or recover right after the offending action modifies the store.
+In a large React/Redux app, the store can become intractable. A common cause of bugs is when the data in the store has changed in a way that the developer didn't expect. `redux-store-validator` is intended to facilitate adding detection of when such a scenario occurs. You can add as many or as little validators to specific parts of your store, and act on it accordingly. For example, you can add a validator to check that a value which you expected to be always positive ever becomes negative. If so, you can log or recover right after the offending action modifies the store.
 
 ### Usage
 
@@ -58,7 +58,7 @@ export default function(state, action) {
 }
 ```
 
-After you've wrapped your reducers and added validators, you can detect if the store has become invalid by querying the state.
+That's it. After you've wrapped your reducers and added validators, you can detect if the store has become invalid by querying the state.
 
 `redux-store-validator` adds the following to your redux state:
 

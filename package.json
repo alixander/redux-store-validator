@@ -9,13 +9,14 @@
   "scripts": {
     "compile": "babel -d lib/ src/",
     "prepublish": "npm run compile",
+    "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register ./test/**/*.spec.js",
     "watch": "onchange 'src/*.js' -- npm run compile"
   },
   "repository": {
     "type": "git",
     "url": "github.com/alixander/redux-store-validator.git"
   },
-  "author": "Blah",
+  "author": "Alexander Wang",
   "license": "MIT",
   "homepage": "https://github.com/alixander/redux-store-validator#readme",
   "babel": {
@@ -23,13 +24,17 @@
       "es2015"
     ],
     "plugins": [
-      ["transform-runtime", {
-        "polyfill": true,
-        "regenerator": true
-      }]
+      [
+        "transform-runtime",
+        {
+          "polyfill": true,
+          "regenerator": true
+        }
+      ]
     ]
   },
   "dependencies": {
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
@@ -38,6 +43,7 @@
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-polyfill": "^6.16.0",
     "babel-preset-es2015": "^6.16.0",
+    "mocha": "^3.2.0",
     "onchange": "^3.0.2"
   }
 }

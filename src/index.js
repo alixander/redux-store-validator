@@ -4,7 +4,7 @@
 
 const noop = () => {return true};
 
-const INVALID_KEYS = '@@redux-store-validator@@INVALID_KEYS';
+export const INVALID_KEYS = '@@redux-store-validator@@INVALID_KEYS';
 
 export const withValidation = (reducers, validators) => {
   const validatedReducers = {};
