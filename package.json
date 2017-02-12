@@ -1,6 +1,6 @@
 {
   "name": "redux-store-validator",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Add validation to your Redux reducers",
   "main": "./lib/redux-store-validator.js",
   "directories": {
