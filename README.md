@@ -1,5 +1,6 @@
 Redux Store Validator
 =========
+![travis-badge](https://travis-ci.org/alixander/redux-store-validator.svg?branch=master)
 
 Wrapper to add validation to your Redux reducers
 
